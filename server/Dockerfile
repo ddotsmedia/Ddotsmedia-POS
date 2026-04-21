@@ -21,11 +21,12 @@ RUN apk add --no-cache curl
 
 COPY package*.json ./
 RUN npm install --omit=dev --ignore-scripts
+
+COPY --from=builder /app/prisma ./prisma
 RUN npx prisma generate
 
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/dist-seed ./dist-seed
-COPY --from=builder /app/prisma ./prisma
 
 EXPOSE 5100
 
