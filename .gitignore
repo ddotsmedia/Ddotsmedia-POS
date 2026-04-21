@@ -53,3 +53,10 @@ redis_data/
 # Temp
 /tmp/
 nginx/nginx-active.conf
+
+node_modules
+.env
+dist
+build
+*.log
+
