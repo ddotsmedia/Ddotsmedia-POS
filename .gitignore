@@ -56,6 +56,8 @@ redis_data/
 # Temp
 /tmp/
 nginx/nginx-active.conf
+test-token.txt
+*.token
 
 node_modules
 .env
