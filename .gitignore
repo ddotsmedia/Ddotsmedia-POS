@@ -8,6 +8,9 @@ dist/
 .next/
 out/
 build/
+desktop/release/
+desktop/dist/
+server/dist/
 
 # Environment files — NEVER commit these
 .env
