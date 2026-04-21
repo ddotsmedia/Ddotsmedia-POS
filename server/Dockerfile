@@ -4,7 +4,7 @@ WORKDIR /app
 COPY package*.json ./
 COPY prisma ./prisma/
 COPY tsconfig*.json ./
-RUN npm ci
+RUN npm install
 COPY . .
 RUN npm run build
 RUN npx prisma generate
@@ -20,7 +20,7 @@ ENV NODE_ENV=production
 RUN apk add --no-cache curl
 
 COPY package*.json ./
-RUN npm ci --omit=dev
+RUN npm install --omit=dev --ignore-scripts
 RUN npx prisma generate
 
 COPY --from=builder /app/dist ./dist
