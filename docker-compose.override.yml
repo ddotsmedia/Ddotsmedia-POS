@@ -1,0 +1,14 @@
+# Shared VPS override — disables our nginx, exposes backend+frontend directly
+# Your existing nginx proxy will forward traffic to these ports
+services:
+  nginx:
+    profiles:
+      - disabled
+
+  frontend:
+    ports:
+      - "3100:3000"
+
+  backend:
+    ports:
+      - "5100:5100"
