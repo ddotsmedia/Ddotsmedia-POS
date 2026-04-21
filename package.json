@@ -1,0 +1,31 @@
+{
+  "name": "pos-system",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "server",
+    "client",
+    "mobile",
+    "desktop",
+    "shared"
+  ],
+  "scripts": {
+    "dev:server": "yarn workspace server dev",
+    "dev:client": "yarn workspace client dev",
+    "dev:desktop": "yarn workspace desktop dev",
+    "dev:mobile": "yarn workspace mobile start",
+    "dev": "concurrently \"yarn dev:server\" \"yarn dev:client\"",
+    "build:server": "yarn workspace server build",
+    "build:client": "yarn workspace client build",
+    "build:desktop": "yarn workspace desktop build",
+    "db:migrate": "yarn workspace server prisma migrate deploy",
+    "db:generate": "yarn workspace server prisma generate",
+    "db:studio": "yarn workspace server prisma studio",
+    "docker:up": "docker compose up -d --build",
+    "docker:down": "docker compose down",
+    "docker:logs": "docker compose logs -f"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

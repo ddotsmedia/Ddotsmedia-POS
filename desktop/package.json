@@ -1,0 +1,99 @@
+{
+  "name": "pos-desktop",
+  "version": "1.0.0",
+  "description": "Ddotsmedia POS System",
+  "author": { "name": "Ddotsmedia", "email": "mammikutty@al-watan.ae" },
+  "main": "dist/main/main.js",
+  "private": true,
+  "scripts": {
+    "build": "electron-vite build",
+    "dev": "electron-vite dev",
+    "electron": "node launch.js",
+    "start": "npm run build && node launch.js",
+    "dist": "npm run build && electron-builder",
+    "dist:win": "npm run build && electron-builder --win"
+  },
+  "dependencies": {
+    "axios": "^1.7.0",
+    "clsx": "^2.1.1",
+    "date-fns": "^2.30.0",
+    "electron-updater": "^6.1.0",
+    "lucide-react": "^0.400.0",
+    "recharts": "^2.15.4",
+    "serialport": "^13.0.0",
+    "sql.js": "^1.12.0",
+    "uuid": "^9.0.0",
+    "zustand": "^4.5.7"
+  },
+  "devDependencies": {
+    "@serialport/bindings-cpp": "^13.0.1",
+    "@types/node": "^20.0.0",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "@types/sql.js": "^1.4.0",
+    "@types/uuid": "^9.0.0",
+    "@vitejs/plugin-react": "^4.0.0",
+    "autoprefixer": "^10.4.0",
+    "concurrently": "^8.2.0",
+    "cross-env": "^10.1.0",
+    "electron": "30.5.1",
+    "electron-builder": "^24.0.0",
+    "electron-vite": "^5.0.0",
+    "postcss": "^8.4.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "tailwindcss": "^3.4.0",
+    "typescript": "^5.0.0",
+    "vite": "^5.0.0",
+    "wait-on": "^7.2.0"
+  },
+  "build": {
+    "appId": "com.ddotsmedia.pos",
+    "productName": "Ddotsmedia POS",
+    "copyright": "Copyright © 2026 Ddotsmedia",
+    "directories": {
+      "output": "release",
+      "buildResources": "assets"
+    },
+    "files": [
+      "dist/**/*",
+      "assets/**/*",
+      "node_modules/**/*",
+      "!node_modules/.cache",
+      "!node_modules/**/test/**",
+      "!node_modules/**/*.md"
+    ],
+    "extraResources": [
+      { "from": "assets/", "to": "assets/", "filter": ["**/*"] }
+    ],
+    "win": {
+      "target": [
+        { "target": "nsis", "arch": ["x64"] },
+        { "target": "portable", "arch": ["x64"] }
+      ],
+      "icon": "assets/icon.ico",
+      "requestedExecutionLevel": "asInvoker",
+      "sign": null,
+      "certificateSubjectName": null,
+      "certificateSha1": null,
+      "signingHashAlgorithms": null
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "allowElevation": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Ddotsmedia POS",
+      "installerIcon": "assets/icon.ico",
+      "uninstallerIcon": "assets/icon.ico",
+      "installerHeaderIcon": "assets/icon.ico",
+      "deleteAppDataOnUninstall": false,
+      "menuCategory": "POS System"
+    },
+    "mac": {
+      "target": "dmg",
+      "icon": "assets/icon.icns"
+    }
+  }
+}
