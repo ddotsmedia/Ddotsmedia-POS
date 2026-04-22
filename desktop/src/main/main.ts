@@ -11,7 +11,8 @@ app.commandLine.appendSwitch('disable-gpu-shader-disk-cache');
 app.commandLine.appendSwitch('disable-gpu-disk-cache');
 
 const IS_DEV = process.env.NODE_ENV === 'development';
-const API_URL = process.env.VITE_API_URL || 'http://localhost:5100';
+const API_URL = process.env.VITE_API_URL
+  || (IS_DEV ? 'http://localhost:5100' : 'https://pos.ddotsmedia.com/api');
 
 let mainWindow: BrowserWindow | null = null;
 let splashWindow: BrowserWindow | null = null;

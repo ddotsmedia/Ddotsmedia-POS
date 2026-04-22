@@ -8,10 +8,10 @@
   "scripts": {
     "build": "electron-vite build",
     "dev": "electron-vite dev",
-    "electron": "node launch.js",
     "start": "npm run build && node launch.js",
-    "dist": "npm run build && electron-builder",
-    "dist:win": "npm run build && electron-builder --win"
+    "dist": "npm run build && electron-builder --win",
+    "dist:unsigned": "npm run build && electron-builder --win --config.win.sign=false",
+    "dist:selfsigned": "npm run build && cross-env CSC_LINK=./certs/selfsigned.pfx CSC_KEY_PASSWORD=ddotsmedia123 electron-builder --win"
   },
   "dependencies": {
     "axios": "^1.7.0",
@@ -61,11 +61,17 @@
       "node_modules/**/*",
       "!node_modules/.cache",
       "!node_modules/**/test/**",
-      "!node_modules/**/*.md"
+      "!node_modules/**/*.md",
+      "!node_modules/**/*.map"
     ],
     "extraResources": [
       { "from": "assets/", "to": "assets/", "filter": ["**/*"] }
     ],
+    "publish": {
+      "provider": "github",
+      "owner": "ddotsmedia",
+      "repo": "Ddotsmedia-POS"
+    },
     "win": {
       "target": [
         { "target": "nsis", "arch": ["x64"] },
@@ -73,10 +79,7 @@
       ],
       "icon": "assets/icon.ico",
       "requestedExecutionLevel": "asInvoker",
-      "sign": null,
-      "certificateSubjectName": null,
-      "certificateSha1": null,
-      "signingHashAlgorithms": null
+      "verifyUpdateCodeSignature": false
     },
     "nsis": {
       "oneClick": false,
@@ -89,7 +92,13 @@
       "uninstallerIcon": "assets/icon.ico",
       "installerHeaderIcon": "assets/icon.ico",
       "deleteAppDataOnUninstall": false,
-      "menuCategory": "POS System"
+      "menuCategory": "POS System",
+      "license": "assets/license.txt",
+      "installerSidebar": "assets/installerSidebar.bmp",
+      "include": "assets/installer.nsh"
+    },
+    "portable": {
+      "artifactName": "Ddotsmedia-POS-Portable-${version}.exe"
     },
     "mac": {
       "target": "dmg",
