@@ -89,6 +89,9 @@ model Tenant {
   categories  Category[]
   customers   Customer[]
   devices     Device[]
+  expenses    Expense[]
+  giftCards   GiftCard[]
+  promotions  Promotion[]
 }
 
 // ─── USERS ────────────────────────────────────────────────────────────────────
@@ -478,6 +481,88 @@ model SyncLog {
 
   @@index([deviceId, status])
   @@index([createdAt])
+}
+
+// ─── EXPENSES ─────────────────────────────────────────────────────────────────
+
+model Expense {
+  id          String   @id @default(cuid())
+  tenantId    String
+  branchId    String
+  category    String
+  description String
+  amount      Float
+  reference   String?
+  receiptUrl  String?
+  createdBy   String
+  expenseDate DateTime @default(now())
+  createdAt   DateTime @default(now())
+
+  tenant      Tenant   @relation(fields: [tenantId], references: [id])
+  branch      Branch   @relation(fields: [branchId], references: [id])
+
+  @@index([tenantId, branchId, expenseDate])
+}
+
+// ─── GIFT CARDS ───────────────────────────────────────────────────────────────
+
+model GiftCard {
+  id           String   @id @default(cuid())
+  tenantId     String
+  code         String
+  initialValue Float
+  balance      Float
+  isActive     Boolean  @default(true)
+  expiresAt    DateTime?
+  issuedTo     String?
+  createdBy    String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  tenant       Tenant   @relation(fields: [tenantId], references: [id])
+  transactions GiftCardTransaction[]
+
+  @@unique([tenantId, code])
+  @@index([tenantId])
+}
+
+model GiftCardTransaction {
+  id         String   @id @default(cuid())
+  giftCardId String
+  type       String
+  amount     Float
+  balanceBefore Float
+  balanceAfter  Float
+  saleId     String?
+  note       String?
+  createdBy  String
+  createdAt  DateTime @default(now())
+
+  giftCard   GiftCard @relation(fields: [giftCardId], references: [id])
+}
+
+// ─── PROMOTIONS ───────────────────────────────────────────────────────────────
+
+model Promotion {
+  id            String    @id @default(cuid())
+  tenantId      String
+  name          String
+  code          String?
+  type          String
+  value         Float
+  minOrderAmount Float?
+  maxUses       Int?
+  usedCount     Int       @default(0)
+  isActive      Boolean   @default(true)
+  startsAt      DateTime  @default(now())
+  expiresAt     DateTime?
+  createdBy     String
+  createdAt     DateTime  @default(now())
+
+  tenant        Tenant    @relation(fields: [tenantId], references: [id])
+
+  @@unique([tenantId, code])
+  @@index([tenantId, isActive])
 }
 
 // ─── AUDIT LOGS ───────────────────────────────────────────────────────────────

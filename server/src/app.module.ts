@@ -12,6 +12,10 @@ import { SyncModule } from './modules/sync/sync.module';
 import { BranchesModule } from './modules/branches/branches.module';
 import { AdminModule } from './modules/admin/admin.module';
 import { PurchaseOrdersModule } from './modules/purchase-orders/purchase-orders.module';
+import { ExpensesModule } from './modules/expenses/expenses.module';
+import { GiftCardsModule } from './modules/gift-cards/gift-cards.module';
+import { PromotionsModule } from './modules/promotions/promotions.module';
+import { SuppliersModule } from './modules/suppliers/suppliers.module';
 
 @Module({
   imports: [
@@ -32,6 +36,10 @@ import { PurchaseOrdersModule } from './modules/purchase-orders/purchase-orders.
     BranchesModule,
     AdminModule,
     PurchaseOrdersModule,
+    ExpensesModule,
+    GiftCardsModule,
+    PromotionsModule,
+    SuppliersModule,
   ],
 })
 export class AppModule {}

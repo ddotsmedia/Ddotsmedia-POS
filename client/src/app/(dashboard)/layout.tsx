@@ -17,8 +17,12 @@ const PAGE_TITLES: Record<string, string> = {
   '/sales': 'Sales History',
   '/transfers': 'Stock Transfers',
   '/purchase-orders': 'Purchase Orders',
+  '/suppliers': 'Suppliers',
   '/branches': 'Branches',
   '/audit': 'Audit Logs',
+  '/expenses': 'Expenses',
+  '/gift-cards': 'Gift Cards',
+  '/promotions': 'Promotions',
 };
 
 function TopBar() {

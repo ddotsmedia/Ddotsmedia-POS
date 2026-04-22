@@ -10,10 +10,13 @@ import { useAuthStore } from './src/store/auth';
 import LoginScreen from './src/screens/Login';
 import DashboardScreen from './src/screens/Dashboard';
 import SalesScreen from './src/screens/Sales';
+import QuickSaleScreen from './src/screens/QuickSale';
 import InventoryScreen from './src/screens/Inventory';
+import StockCountScreen from './src/screens/StockCount';
 import CustomersScreen from './src/screens/Customers';
 import ReportsScreen from './src/screens/Reports';
 import AIInsightsScreen from './src/screens/AIInsights';
+import NotificationsScreen from './src/screens/Notifications';
 import SettingsScreen from './src/screens/Settings';
 
 const Tab = createBottomTabNavigator();
@@ -26,17 +29,21 @@ const queryClient = new QueryClient({
 
 const ICONS: Record<string, keyof typeof Ionicons.glyphMap> = {
   Dashboard: 'stats-chart',
+  'Quick Sale': 'flash',
   Sales: 'receipt',
   Inventory: 'cube',
+  'Stock Count': 'clipboard',
   Customers: 'people',
   Reports: 'bar-chart',
   'AI Insights': 'sparkles',
+  Alerts: 'notifications',
   Settings: 'settings',
 };
 
 function MainTabs() {
   const { user } = useAuthStore();
   const isAdmin = ['ADMIN', 'SUPER_ADMIN'].includes(user?.role ?? '');
+  const isManager = ['ADMIN', 'SUPER_ADMIN', 'MANAGER'].includes(user?.role ?? '');
 
   return (
     <Tab.Navigator
@@ -55,11 +62,14 @@ function MainTabs() {
       })}
     >
       <Tab.Screen name="Dashboard" component={DashboardScreen} />
+      <Tab.Screen name="Quick Sale" component={QuickSaleScreen} />
       <Tab.Screen name="Sales" component={SalesScreen} />
       <Tab.Screen name="Inventory" component={InventoryScreen} />
+      {isManager && <Tab.Screen name="Stock Count" component={StockCountScreen} />}
       <Tab.Screen name="Customers" component={CustomersScreen} />
       <Tab.Screen name="Reports" component={ReportsScreen} />
       {isAdmin && <Tab.Screen name="AI Insights" component={AIInsightsScreen} />}
+      <Tab.Screen name="Alerts" component={NotificationsScreen} />
       <Tab.Screen name="Settings" component={SettingsScreen} />
     </Tab.Navigator>
   );

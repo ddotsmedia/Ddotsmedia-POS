@@ -13,6 +13,7 @@ import {
   LayoutDashboard, Package, Warehouse, Users, BarChart3,
   Sparkles, UserCog, Receipt, Building2, Shield, ChevronDown,
   LogOut, ChevronsLeft, ChevronsRight, ArrowRightLeft, ShoppingCart,
+  Wallet, Gift, Tag, Truck,
 } from 'lucide-react';
 
 const NAV_SECTIONS = [
@@ -31,7 +32,21 @@ const NAV_SECTIONS = [
       { href: '/inventory', label: 'Inventory', icon: Warehouse },
       { href: '/transfers', label: 'Transfers', icon: ArrowRightLeft },
       { href: '/purchase-orders', label: 'Purchase Orders', icon: ShoppingCart },
+      { href: '/suppliers', label: 'Suppliers', icon: Truck },
       { href: '/customers', label: 'Customers', icon: Users },
+    ],
+  },
+  {
+    label: 'Marketing',
+    items: [
+      { href: '/promotions', label: 'Promotions', icon: Tag },
+      { href: '/gift-cards', label: 'Gift Cards', icon: Gift },
+    ],
+  },
+  {
+    label: 'Finance',
+    items: [
+      { href: '/expenses', label: 'Expenses', icon: Wallet },
     ],
   },
   {

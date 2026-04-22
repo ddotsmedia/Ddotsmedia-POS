@@ -94,4 +94,36 @@ export const posApi = {
   getForecast: (productId: string) => api.get(`/v1/ai/forecast/${productId}`),
   getAnomalies: () => api.get('/v1/ai/anomalies'),
   chat: (messages: any[]) => api.post('/v1/ai/chat', { messages }),
+
+  // Expenses
+  getExpenses: (params?: any) => api.get('/v1/expenses', { params }),
+  getExpenseSummary: (params?: any) => api.get('/v1/expenses/summary', { params }),
+  createExpense: (data: any) => api.post('/v1/expenses', data),
+  updateExpense: (id: string, data: any) => api.put(`/v1/expenses/${id}`, data),
+  deleteExpense: (id: string) => api.delete(`/v1/expenses/${id}`),
+
+  // Gift Cards
+  getGiftCards: (params?: any) => api.get('/v1/gift-cards', { params }),
+  getGiftCard: (id: string) => api.get(`/v1/gift-cards/${id}`),
+  lookupGiftCard: (code: string) => api.get('/v1/gift-cards/lookup', { params: { code } }),
+  createGiftCard: (data: any) => api.post('/v1/gift-cards', data),
+  topUpGiftCard: (id: string, amount: number, note?: string) => api.post(`/v1/gift-cards/${id}/top-up`, { amount, note }),
+  redeemGiftCard: (id: string, amount: number, saleId?: string) => api.post(`/v1/gift-cards/${id}/redeem`, { amount, saleId }),
+  deactivateGiftCard: (id: string) => api.patch(`/v1/gift-cards/${id}/deactivate`),
+
+  // Promotions
+  getPromotions: (params?: any) => api.get('/v1/promotions', { params }),
+  validatePromoCode: (code: string, amount: number) => api.get('/v1/promotions/validate', { params: { code, amount } }),
+  createPromotion: (data: any) => api.post('/v1/promotions', data),
+  applyPromoCode: (code: string) => api.post('/v1/promotions/apply', { code }),
+  updatePromotion: (id: string, data: any) => api.put(`/v1/promotions/${id}`, data),
+  togglePromotion: (id: string) => api.patch(`/v1/promotions/${id}/toggle`),
+  deletePromotion: (id: string) => api.delete(`/v1/promotions/${id}`),
+
+  // Suppliers
+  getSuppliers: (params?: any) => api.get('/v1/suppliers', { params }),
+  getSupplier: (id: string) => api.get(`/v1/suppliers/${id}`),
+  createSupplier: (data: any) => api.post('/v1/suppliers', data),
+  updateSupplier: (id: string, data: any) => api.put(`/v1/suppliers/${id}`, data),
+  deleteSupplier: (id: string) => api.delete(`/v1/suppliers/${id}`),
 };
